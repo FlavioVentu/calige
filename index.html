@@ -32,7 +32,7 @@
 
 
     <!-- NAVBAR -->
-    <nav class="sticky-top mb-5 navbar cali_color navbar-expand-lg" data-bs-theme="dark">
+    <nav class="sticky-top navbar cali_color navbar-expand-lg" data-bs-theme="dark">
         <div class="container-fluid">
 
             <!-- parte logo (alto a sinistra) -->
@@ -56,12 +56,15 @@
                 <div class="offcanvas-body text-center">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 
+                        <!-- FORUM -->
                         <li class="nav-item me-lg-5 mb-lg-0 mb-4"><a class="nav-link" aria-current="page"
                                 href="">Forum</a></li>
 
+                        <!-- REGISTRAZIONE -->
                         <li class="nav-item me-lg-3 mb-lg-0 mb-3"><a class="btn btn-light" href="" role="button"
                                 aria-label="Clicca per andare alla pagina di registrazione">Sign Up</a></li>
 
+                        <!-- LOGIN -->
                         <li class="nav-item me-lg-3"><a class="btn btn-dark" href="" role="button"
                                 aria-label="Clicca per andare alla pagina del login">Login</a></li>
                     </ul>
@@ -72,16 +75,57 @@
 
 
     <!-- PARTE CENTRALE -->
-    <div class="min-vh-100">
+    <div class="min-vh-100" id="sfondo">
+        <div class="container-fluid text-center pb-5 text-white" role="complementary">
+            <h1 class="display-3 p-5">- PARCHETTI -</h1>
+            <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 d-flex align-items-stretch" role="group">
 
+                <!-- CALISAURO -->
+                <div class="col">
+                    <div class="card m-5 rounded-5">
+                        <img src="public_html/frontend/images/parchi/genova_sauro.jpg"
+                            class="card-img-top rounded-5 rounded-bottom-0" alt="Parco calistenico del CaliSauro">
+                        <div class="card-body text-white">
+                            <h5 class="card-title">CaliSauro</h5>
+                            <p class="card-text">Descrizione...</p>
+                            <a href="#" class="btn btn-primary">Visita</a>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- GENOVA PRA -->
+                <div class="col">
+                    <div class="card m-5 rounded-5">
+                        <img src="public_html/frontend/images/parchi/genova_pra.jpg"
+                            class="card-img-top rounded-5 rounded-bottom-0" alt="Parco calistenico di Genova Pra">
+                        <div class="card-body text-white">
+                            <h5 class="card-title">Genova Pra</h5>
+                            <p class="card-text">Descrizione...</p>
+                            <a href="#" class="btn btn-primary">Visita</a>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- GENOVA NERVI -->
+                <div class="col">
+                    <div class="card m-5 rounded-5">
+                        <img src="public_html/frontend/images/parchi/genova_nervi.jpg"
+                            class="card-img-top rounded-5 rounded-bottom-0" alt="Parco calistenico di Genova Nervi">
+                        <div class="card-body text-white">
+                            <h5 class="card-title">Genova Nervi</h5>
+                            <p class="card-text">Descrizione...</p>
+                            <a href="#" class="btn btn-primary">Visita</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
     <!-- FOOTER -->
     <footer>
-        <div class="container-fluid text-center cali_color p-5 mt-5 text-light">
+        <div class="container-fluid text-center cali_color p-5 text-light">
             <div class="row align-items-center mx-2">
 
                 <!-- parte logo -->
@@ -100,10 +144,6 @@
                             <p class="p-3 px-4">Copyright &copy; 2025 <a
                                     href="https://corsi.unige.it/off.f/2024/ins/77609?codcla=8759" target="_blank"
                                     class="text-white">Saw</a> tutti i diritti riservati</p>
-                        </li>
-                        <li>
-                            <p class="mt-3">Offerto da <a href="https://httpd.apache.org/" target="_blank"
-                                    class="text-white">Apache</a></p>
                         </li>
                     </ul>
                 </div>
