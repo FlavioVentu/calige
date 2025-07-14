@@ -1,0 +1,25 @@
+.cali_color {
+    background-color: #1f3244;
+}
+
+#sfondo {
+    background-image: url(../images/sfondo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.card {
+    background-color: #1f3244;
+}
+
+.card:hover {
+    border-left-width: 0.5rem;
+    border-right-width: 0.5rem;
+    border-color: #1f3244;
+    border-style: solid;
+}
