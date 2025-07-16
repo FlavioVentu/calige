@@ -1,5 +1,6 @@
 <?php
 
+# classe per la gestione della connesione al DB
 class Connection {
     const HOST = 'localhost';
     const USER = 'root';

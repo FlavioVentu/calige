@@ -8,6 +8,7 @@ class ErrorLog {
         ini_set('error_log', $path);
     }
 
+    # errori DB
     public static function logDB() {
         self::setLog('../db/logs/error.log');
     }
