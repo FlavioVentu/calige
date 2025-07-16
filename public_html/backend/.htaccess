@@ -1,2 +1,7 @@
-Order deny,allow
-Deny from all
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Impedisce l'accesso diretto a TUTTE le sottocartelle tranne "api"
+  RewriteCond %{REQUEST_URI} !^/backend/api/
+  RewriteRule ^.*$ - [F,L]
+</IfModule>
