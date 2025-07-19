@@ -31,7 +31,7 @@
                                 href="">Forum</a></li>
 
                         <!-- REGISTRAZIONE -->
-                        <li class="nav-item me-lg-3 mb-lg-0 mb-3"><a class="btn btn-light" href="" role="button"
+                        <li class="nav-item me-lg-3 mb-lg-0 mb-3"><a class="btn btn-light" href="/frontend/pages/signup.php" role="button"
                                 aria-label="Clicca per andare alla pagina di registrazione">Sign Up</a></li>
 
                         <!-- LOGIN -->

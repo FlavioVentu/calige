@@ -4,7 +4,7 @@
 header("Content-Type: application/json");
 
 # se la richiesta http non è POST
-# se viene fatta da un browser rimandiamo alla pagina frontend della sign-up
+# se viene fatta da un browser rimandiamo alla pagina frontend della login
 # altrimenti mandiamo un payload json di errore con metodo non valido
 if($_SERVER['REQUEST_METHOD'] !== 'POST') {
     if (!empty($_SERVER['HTTP_USER_AGENT']) &&
@@ -72,11 +72,11 @@ $internal_error = json_encode([
         ]);
 
 # setto i log in modo che gli errori del db vadano in un file specifico
-require_once '../utils/log.php';
+require_once '../utils/Log.php';
 ErrorLog::logDB();
 
 # stabilisco una connesione al DB
-require_once '../db/connection.php';
+require_once '../db/Connection.php';
 $con;
 
 try {
@@ -95,7 +95,7 @@ try {
 # parte di interrogazione al DB
 $query ="SELECT * FROM utente WHERE email = ?";
 
-require_once '../db/queries/userLogin.php';
+require_once '../db/queries/UserLogin.php';
 try {
 
     $reg = new UserLogin($con,$query,$password);

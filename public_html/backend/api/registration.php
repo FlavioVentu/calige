@@ -114,11 +114,11 @@ $internal_error = json_encode([
         ]);
 
 # setto i log in modo che gli errori del db vadano in un file specifico
-require_once '../utils/log.php';
+require_once '../utils/Log.php';
 ErrorLog::logDB();
 
 # stabilisco una connesione al DB
-require_once '../db/connection.php';
+require_once '../db/Connection.php';
 $con;
 
 try {
@@ -137,7 +137,7 @@ try {
 # parte di interrogazione al DB
 $query = "INSERT INTO utente (username, nome, cognome, email, password) VALUE ('$random_username',?,?,?,?)";
 
-require_once '../db/queries/userRegistration.php';
+require_once '../db/queries/UserRegistration.php';
 try {
 
     $reg = new UserRegistration($con,$query);
@@ -154,7 +154,7 @@ try {
     $con->close();
 }
 
-# se tutto va bene mando una risposta di successo
+# se tutto va bene mando una risposta di successo includendo lo username generato
 echo json_encode([
             "status" => "Successo",
             "message" => "Utente registrato!",

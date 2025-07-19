@@ -8,7 +8,7 @@ class UserRegistration extends PreparedStmt {
         $stmt = $this->prepare($types,$params);
 
         if ($stmt->affected_rows !== 1) {
-            throw new mysqli_sql_exception("L'inserimento non è andato a buon fine");
+            throw new mysqli_sql_exception("L'inserimento non è andato a buon fine:" . get_class($this));
         }
         
         $this->close($stmt);
