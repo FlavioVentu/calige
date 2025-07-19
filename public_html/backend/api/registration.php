@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST') {
 session_start();
 
 # se abbiamo salvato nella sessione la variabile login rimandiamo alla homepage (utente già loggato)
-if(isset($_SESSION['login'])) {
+if(isset($_SESSION['username'])) {
     header('Location: ../../');
     exit;
 }
@@ -141,7 +141,7 @@ require_once '../db/queries/userRegistration.php';
 try {
 
     $reg = new UserRegistration($con,$query);
-    $reg->execute('ssss',array($firstname,$lastname,$email,$password));
+    $reg->execute('ssss',array($firstname,$lastname,$email,$hash));
 
 } catch (mysqli_sql_exception $e) {
 

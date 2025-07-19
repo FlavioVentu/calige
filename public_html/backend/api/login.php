@@ -22,6 +22,12 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 session_start();
 
+# se abbiamo salvato nella sessione la variabile login rimandiamo alla homepage (utente già loggato)
+if(isset($_SESSION['username'])) {
+    header('Location: ../../');
+    exit;
+}
+
 # se non abbiamo tutti i parametri ritorniamo errore
 if(!isset($_POST['email']) || !isset($_POST['pass'])) {
     http_response_code(400);
@@ -93,13 +99,22 @@ require_once '../db/queries/userLogin.php';
 try {
 
     $reg = new UserLogin($con,$query,$password);
-    $reg->execute('ss',array($email));
+    $reg->execute('s',array($email));
 
 } catch (mysqli_sql_exception $e) {
 
     error_log($e->getMessage());
     http_response_code(500);
     echo $internal_error;
+    exit;
+
+} catch (Error $e) {
+
+    http_response_code(400);
+    echo json_encode([
+        "status" => "Errore",
+        "message" => "Credenziali errate"
+    ]);
     exit;
 
 } finally {
