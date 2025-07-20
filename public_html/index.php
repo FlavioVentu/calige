@@ -1,7 +1,9 @@
 <?php
 
+# Header
 require_once "backend/components/header.php";
 
+# Navbar
 require_once "backend/components/navbar.php";
 
 ?>
@@ -129,6 +131,7 @@ require_once "backend/components/navbar.php";
 
 <?php
 
+# Footer
 require_once "backend/components/footer.html";
 
 ?>

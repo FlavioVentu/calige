@@ -42,5 +42,5 @@ class UserLogin extends PreparedStmt {
         # 3. se tutto è ok creare la variabile di sessione username contenente tale dato dal db
         $_SESSION['username'] = $row['username'];
 
-}
+    }
 }

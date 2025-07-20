@@ -1,6 +1,6 @@
 <?php
-require_once "backend/components/header.php";
-require_once "backend/components/navbar.php";
+require_once "../../backend/components/header.php";
+require_once "../../backend/components/navbar.php";
 ?>
 
 <div class="container text-white pt-5">
@@ -19,5 +19,5 @@ require_once "backend/components/navbar.php";
 </div>
 
 <?php
-require_once "backend/components/footer.html";
+require_once "../../backend/components/footer.html";
 ?>

@@ -1,34 +1,38 @@
 <?php
 
+# setto i log in modo che gli errori vadano in un file specifico
+require_once '../utils/Log.php';
+ErrorLog::logGeneral();
+
 # utilizziamo formato json per la risposta nel body
 header("Content-Type: application/json");
 
-# se la richiesta http non è POST
-# se viene fatta da un browser rimandiamo alla pagina frontend della show_profile
-# altrimenti mandiamo un payload json di errore con metodo non valido
-if($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    if (!empty($_SERVER['HTTP_USER_AGENT']) &&
-           strpos($_SERVER['HTTP_USER_AGENT'], 'Mozilla') !== false) {
-        header('Location: ../../frontend/pages/show_profile.php');
-    } else {
-        http_response_code(405);
-        echo json_encode([
-            "status" => "Errore",
-            "message" => "Richiesta effettuata con un metodo HTTP non supportato"
-        ]);
-    }
+# se la richiesta http non è formata con il metodo get restituisco un errore
+if($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    http_response_code(405);
+    echo json_encode([
+        "status" => "Errore",
+        "message" => "Richiesta effettuata con un metodo HTTP non supportato (richiesto GET, trovato " . $_SERVER['REQUEST_METHOD'] . ")"
+    ]);
     exit;
 }
 
 session_start();
 
-# se l'utente non è loggato mandiamo errore
+require_once '../utils/functions.php';
+
+# se non abbiamo salvato nella sessione la variabile username rimandiamo alla pagina di login (utente non loggato)
+# Se non è una richiesta da browser, rispondiamo in JSON con errore 401
 if (!isset($_SESSION['username'])) {
-    http_response_code(401);
-    echo json_encode([
-        "status" => "Errore",
-        "message" => "Utente non autenticato"
-    ]);
+    if (isBrowserRequest()) {
+        header('Location: ../../frontend/pages/login.php');
+    } else {
+        http_response_code(401);
+        echo json_encode([
+            "status" => "Errore",
+            "message" => "Utente non autenticato"
+        ]);
+    }
     exit;
 }
 
@@ -41,12 +45,10 @@ $internal_error = json_encode([
         ]);
 
 # setto i log in modo che gli errori del db vadano in un file specifico
-require_once '../utils/Log.php';
 ErrorLog::logDB();
 
 # stabilisco una connesione al DB
 require_once '../db/Connection.php';
-$con;
 
 try {
 
@@ -73,6 +75,18 @@ try {
     $reg = new UserShowProfile($con,$query);
     $info = $reg->execute();
 
+    # se tutto va bene mando una risposta di successo con i dati dell'utente
+    echo json_encode([
+        "status" => "Successo",
+        "message" => "Informazioni disponibili!",
+        "data" => [
+            "username" => $user,
+            "firstname" => $info['nome'],
+            "lastname" => $info['cognome'],
+            "email" => $info['email']
+        ]
+    ]);
+
 } catch (mysqli_sql_exception $e) {
 
     error_log($e->getMessage());
@@ -83,15 +97,3 @@ try {
 }  finally {
     $con->close();
 }
-
-# se tutto va bene mando una risposta di successo con i dati dell'utente
-echo json_encode([
-            "status" => "Successo",
-            "message" => "Informazioni disponibili!",
-            "data" => [
-                "username" => $user,
-                "firstname" => $info['nome'],
-                "lastname" => $info['cognome'],
-                "email" => $info['email']
-            ]
-        ]);

@@ -1,20 +1,25 @@
 <?php
 
+# setto i log in modo che gli errori vadano in un file specifico
+require_once '../utils/Log.php';
+ErrorLog::logGeneral();
+
 # utilizziamo formato json per la risposta nel body
 header("Content-Type: application/json");
+
+require_once '../utils/functions.php';
 
 # se la richiesta http non è POST
 # se viene fatta da un browser rimandiamo alla pagina frontend della sign-up
 # altrimenti mandiamo un payload json di errore con metodo non valido
 if($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    if (!empty($_SERVER['HTTP_USER_AGENT']) &&
-           strpos($_SERVER['HTTP_USER_AGENT'], 'Mozilla') !== false) {
+    if (isBrowserRequest()) {
         header('Location: ../../frontend/pages/signup.php');
     } else {
         http_response_code(405);
         echo json_encode([
             "status" => "Errore",
-            "message" => "Richiesta effettuata con un metodo HTTP non supportato"
+            "message" => "Richiesta effettuata con un metodo HTTP non supportato (richiesto POST, trovato " . $_SERVER['REQUEST_METHOD'] . ")"
         ]);
     }
     exit;
@@ -22,9 +27,18 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 session_start();
 
-# se abbiamo salvato nella sessione la variabile login rimandiamo alla homepage (utente già loggato)
-if(isset($_SESSION['username'])) {
-    header('Location: ../../');
+# se abbiamo salvato nella sessione la variabile username rimandiamo alla home page (utente già loggato)
+# Se non è una richiesta da browser, rispondiamo in JSON con errore 400
+if (isset($_SESSION['username'])) {
+    if (isBrowserRequest()) {
+        header('Location: ../../');
+    } else {
+        http_response_code(400);
+        echo json_encode([
+            "status" => "Errore",
+            "message" => "Utente già autenticato"
+        ]);
+    }
     exit;
 }
 
@@ -102,7 +116,6 @@ if($password !== $confirm) {
 $hash = password_hash($password, PASSWORD_DEFAULT);
 
 # genero uno username casuale per la registrazione
-require_once '../utils/functions.php';
 $random_username = randomUsername();
 
 # PARTE DB
@@ -114,12 +127,10 @@ $internal_error = json_encode([
         ]);
 
 # setto i log in modo che gli errori del db vadano in un file specifico
-require_once '../utils/Log.php';
 ErrorLog::logDB();
 
 # stabilisco una connesione al DB
 require_once '../db/Connection.php';
-$con;
 
 try {
 
@@ -143,6 +154,15 @@ try {
     $reg = new UserRegistration($con,$query);
     $reg->execute('ssss',array($firstname,$lastname,$email,$hash));
 
+    # se tutto va bene mando una risposta di successo includendo lo username generato
+    echo json_encode([
+        "status" => "Successo",
+        "message" => "Utente registrato!",
+        "data" => [
+            "username" => $random_username
+        ]
+    ]);
+
 } catch (mysqli_sql_exception $e) {
 
     error_log($e->getMessage());
@@ -153,12 +173,3 @@ try {
 } finally {
     $con->close();
 }
-
-# se tutto va bene mando una risposta di successo includendo lo username generato
-echo json_encode([
-            "status" => "Successo",
-            "message" => "Utente registrato!",
-            "data" => [
-                "username" => $random_username
-            ]
-        ]);
