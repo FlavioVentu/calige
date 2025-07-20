@@ -1,20 +1,25 @@
 <?php
 
+# setto i log in modo che gli errori vadano in un file specifico
+require_once '../utils/Log.php';
+ErrorLog::logGeneral();
+
 # utilizziamo formato json per la risposta nel body
 header("Content-Type: application/json");
+
+require_once '../utils/functions.php';
 
 # se la richiesta http non è POST
 # se viene fatta da un browser rimandiamo alla pagina frontend della sign-up
 # altrimenti mandiamo un payload json di errore con metodo non valido
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    if (!empty($_SERVER['HTTP_USER_AGENT']) &&
-        strpos($_SERVER['HTTP_USER_AGENT'], 'Mozilla') !== false) {
-        header('Location: ../../frontend/pages/profile.php');
+    if (isBrowserRequest()) {
+        header('Location: ../../frontend/pages/update_profile.php');
     } else {
         http_response_code(405);
         echo json_encode([
             "status" => "Errore",
-            "message" => "Metodo HTTP non supportato"
+            "message" => "Richiesta effettuata con un metodo HTTP non supportato (richiesto POST, trovato " . $_SERVER['REQUEST_METHOD'] . ")"
         ]);
     }
     exit;
@@ -22,91 +27,120 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 session_start();
 
+# se non abbiamo salvato nella sessione la variabile username rimandiamo alla pagina di login (utente non loggato)
+# Se non è una richiesta da browser, rispondiamo in JSON con errore 401
 if (!isset($_SESSION['username'])) {
-    http_response_code(401);
-    echo json_encode([
-        "status" => "Errore",
-        "message" => "Utente non autenticato"
-    ]);
+    if (isBrowserRequest()) {
+        header('Location: ../../frontend/pages/login.php');
+    } else {
+        http_response_code(401);
+        echo json_encode([
+            "status" => "Errore",
+            "message" => "Utente non autenticato"
+        ]);
+    }
     exit;
 }
 
-$firstname = isset($_POST['firstname']) ? trim($_POST['firstname']) : null;
-$lastname  = isset($_POST['lastname']) ? trim($_POST['lastname']) : null;
-$email     = isset($_POST['email']) ? trim($_POST['email']) : null;
-$password  = isset($_POST['pass']) ? trim($_POST['pass']) : null;
-
-if (!$firstname || !$lastname || !$email) {
+# se non abbiamo tutti i parametri ritorniamo errore
+if(!isset($_POST['firstname']) || !isset($_POST['lastname']) || !isset($_POST['email'])) {
     http_response_code(400);
     echo json_encode([
-        "status" => "Errore",
-        "message" => "Nome, cognome ed email sono obbligatori"
-    ]);
+            "status" => "Errore",
+            "message" => "Mancanza di dati necessari per l'update del profilo"
+        ]);
     exit;
 }
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+$firstname = trim($_POST['firstname']);
+$lastname = trim($_POST['lastname']);
+$email = trim($_POST['email']);
+
+# CONTROLLO VARIABILI
+
+# nome
+if(strlen($firstname) < 2 || strlen($firstname) > 30) {
     http_response_code(400);
     echo json_encode([
-        "status" => "Errore",
-        "message" => "Formato email non valido"
-    ]);
+            "status" => "Errore",
+            "message" => "Nome fornito non valido"
+        ]);
     exit;
 }
 
-if ($password && strlen($password) < 8) {
+# cognome
+if(strlen($lastname) < 2 || strlen($lastname) > 30) {
     http_response_code(400);
     echo json_encode([
-        "status" => "Errore",
-        "message" => "Password troppo corta"
-    ]);
+            "status" => "Errore",
+            "message" => "Cognome fornito non valido"
+        ]);
     exit;
 }
 
-require_once '../utils/log.php';
+# email
+if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    http_response_code(400);
+    echo json_encode([
+            "status" => "Errore",
+            "message" => "Formato email invalido"
+        ]);
+    exit;
+}
+
+# risposta json in caso di errore del server
+$internal_error = json_encode([
+        "status" => "Errore",
+        "message" => "Problema interno :("
+        ]);
+
+# setto i log in modo che gli errori del db vadano in un file specifico
 ErrorLog::logDB();
 
+# stabilisco una connesione al DB
 require_once '../db/connection.php';
 
-$con;
 try {
+
     $con = Connection::getCon();
+
 } catch (mysqli_sql_exception $e) {
+
     error_log($e->getMessage());
     http_response_code(500);
-    echo json_encode([
-        "status" => "Errore",
-        "message" => "Problema di connessione al database"
-    ]);
+    echo $internal_error;
     exit;
 }
 
-require_once '../db/queries/userUpdate.php';
+$user = $_SESSION['username'];
 
+$query = "UPDATE utente SET nome=?, cognome=?, email=? WHERE username='$user'";
+
+require_once '../db/queries/UserUpdateProfile.php';
 try {
-    $updater = new UserUpdate($con, $password);
-    $updater->execute($_SESSION['username'], $firstname, $lastname, $email);
+
+    $new_data = new UserUpdateProfile($con, $query);
+    $new_data->execute('sss',array($firstname,$lastname,$email));
+
+    # se tutto va bene mando una risposta di successo con le informazioni aggiornate
+    echo json_encode([
+        "status" => "Successo",
+        "message" => "Dati aggiornati!",
+        "data" => [
+            "username" => $user,
+            "firstname" => $firstname,
+            "lastname" => $lastname,
+            "email" => $email
+        ]
+    ]);
+
 } catch (mysqli_sql_exception $e) {
+
     error_log($e->getMessage());
     http_response_code(500);
-    echo json_encode([
-        "status" => "Errore",
-        "message" => "Errore nel database durante l'aggiornamento"
-    ]);
+    echo $internal_error;
     exit;
-} catch (Exception $e) {
-    http_response_code(400);
-    echo json_encode([
-        "status" => "Errore",
-        "message" => $e->getMessage()
-    ]);
-    exit;
+
 } finally {
     $con->close();
 }
-
-echo json_encode([
-    "status" => "Successo",
-    "message" => "Profilo aggiornato con successo"
-]);
-

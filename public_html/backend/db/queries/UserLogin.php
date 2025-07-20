@@ -19,13 +19,13 @@ class UserLogin extends PreparedStmt {
 
         $this->close($stmt);
 
-        # 1. controllare che la query abbia restituito 1 solo record
+        # 1. controlliamo che la query abbia restituito 1 solo record
         
         if($result->num_rows !== 1) {
             throw new Error("L'email non è presente nel database");
         }
 
-        # Recuperiamo il record
+        # Recuperiamo il record come array associativo
         if(!($row = $result->fetch_assoc())) {
             throw new mysqli_sql_exception("Errore nel recuperare il record della query:" . get_class($this));
         }
@@ -42,5 +42,5 @@ class UserLogin extends PreparedStmt {
         # 3. se tutto è ok creare la variabile di sessione username contenente tale dato dal db
         $_SESSION['username'] = $row['username'];
 
-}
+    }
 }

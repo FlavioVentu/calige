@@ -6,7 +6,7 @@
         <div class="container-fluid">
 
             <!-- parte logo (alto a sinistra) -->
-            <a class="navbar-brand px-3" href="">CALI<i>ge</i></a>
+            <a class="navbar-brand px-3" href="/">CALI<i>ge</i></a>
 
             <!-- parte mobile 3 linee -->
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -28,14 +28,14 @@
 
                         <!-- FORUM -->
                         <li class="nav-item me-lg-5 mb-lg-0 mb-4"><a class="nav-link" aria-current="page"
-                                href="">Forum</a></li>
+                                href="/frontend/pages/forum.php">Forum</a></li>
 
                         <!-- REGISTRAZIONE -->
                         <li class="nav-item me-lg-3 mb-lg-0 mb-3"><a class="btn btn-light" href="/frontend/pages/signup.php" role="button"
                                 aria-label="Clicca per andare alla pagina di registrazione">Sign Up</a></li>
 
                         <!-- LOGIN -->
-                        <li class="nav-item me-lg-3"><a class="btn btn-dark" href="" role="button"
+                        <li class="nav-item me-lg-3"><a class="btn btn-dark" href="/frontend/pages/login.php" role="button"
                                 aria-label="Clicca per andare alla pagina del login">Login</a></li>
                     </ul>
                 </div>
