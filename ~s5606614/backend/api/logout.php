@@ -22,7 +22,7 @@ session_start();
 
 require_once '../utils/functions.php';
 
-# se non abbiamo salvato nella sessione la variabile username rimandiamo alla pagina di login (utente non loggato)
+# se non abbiamo salvato nella sessione la variabile username rimandiamo alla pagina di login (utente ha già fatto login)
 # Se non è una richiesta da browser, rispondiamo in JSON con errore 401
 if (!isset($_SESSION['username'])) {
     if (isBrowserRequest()) {
@@ -38,7 +38,7 @@ if (!isset($_SESSION['username'])) {
 }
 
 # Logout: svuotiamo e distruggiamo la sessione
-$_SESSION = [];
+session_unset();
 session_destroy();
 
 # Se è una richiesta da browser, facciamo redirect alla login

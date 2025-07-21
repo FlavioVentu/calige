@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 session_start();
 
-# se abbiamo salvato nella sessione la variabile username rimandiamo alla home page (utente già loggato)
+# se abbiamo salvato nella sessione la variabile username rimandiamo alla home page (utente ha già fatto il login)
 # Se non è una richiesta da browser, rispondiamo in JSON con errore 400
 if (isset($_SESSION['username'])) {
     if (isBrowserRequest()) {
@@ -112,7 +112,7 @@ if($password !== $confirm) {
     exit;
 }
 
-# faccio l'hash della password
+# faccio hash della password
 $hash = password_hash($password, PASSWORD_DEFAULT);
 
 # genero uno username casuale per la registrazione
@@ -129,7 +129,7 @@ $internal_error = json_encode([
 # setto i log in modo che gli errori del db vadano in un file specifico
 ErrorLog::logDB();
 
-# stabilisco una connesione al DB
+# stabilisco una connessione al DB
 require_once '../db/Connection.php';
 
 try {
@@ -146,7 +146,7 @@ try {
 }
 
 # parte di interrogazione al DB
-$query = "INSERT INTO utente (username, nome, cognome, email, password) VALUE ('$random_username',?,?,?,?)";
+$query = "INSERT INTO utente (username, nome, cognome, email, password) VALUES ('$random_username',?,?,?,?)";
 
 require_once '../db/queries/UserRegistration.php';
 try {

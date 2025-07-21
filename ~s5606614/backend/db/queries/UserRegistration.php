@@ -1,6 +1,6 @@
 <?php
 
-require_once 'preparedStmt.php';
+require_once 'PreparedStmt.php';
 
 class UserRegistration extends PreparedStmt {
 

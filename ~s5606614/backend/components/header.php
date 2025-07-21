@@ -22,8 +22,8 @@
         defer></script>
 
     <!-- CSS -->
-    <link href="/frontend/css/index.css" rel="stylesheet">
+    <link href="/~s5606614/frontend/css/index.css" rel="stylesheet">
 
     <!-- ICON -->
-    <link rel="shortcut icon" href="frontend/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/~s5606614/frontend/images/favicon.ico" type="image/x-icon">
 </head>

@@ -1,10 +1,10 @@
 <?php
 
-# classe per la gestione della connesione al DB
+# classe per la gestione della connessione al DB
 final class Connection {
     const HOST = 'localhost';
-    const USER = 'root';
-    const PASS = 'root';
+    const USER = 's5606614';
+    const PASS = '3pwd4InIxy';
     const DB = 's5606614';
 
     public static function getCon(): mysqli

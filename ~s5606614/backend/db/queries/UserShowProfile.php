@@ -3,7 +3,7 @@ require_once 'Stmt.php';
 
 class UserShowProfile extends Stmt {
 
-    public function execute() {
+    public function execute(): array {
         $res = $this->init();
 
         if($res->num_rows !== 1) {

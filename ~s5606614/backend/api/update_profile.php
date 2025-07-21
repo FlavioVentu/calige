@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 session_start();
 
-# se non abbiamo salvato nella sessione la variabile username rimandiamo alla pagina di login (utente non loggato)
+# se non abbiamo salvato nella sessione la variabile username rimandiamo alla pagina di login (utente non ha fatto login)
 # Se non è una richiesta da browser, rispondiamo in JSON con errore 401
 if (!isset($_SESSION['username'])) {
     if (isBrowserRequest()) {
@@ -47,7 +47,7 @@ if(!isset($_POST['firstname']) || !isset($_POST['lastname']) || !isset($_POST['e
     http_response_code(400);
     echo json_encode([
             "status" => "Errore",
-            "message" => "Mancanza di dati necessari per l'update del profilo"
+            "message" => "Mancanza di dati necessari per aggiornamento del profilo"
         ]);
     exit;
 }
@@ -97,7 +97,7 @@ $internal_error = json_encode([
 # setto i log in modo che gli errori del db vadano in un file specifico
 ErrorLog::logDB();
 
-# stabilisco una connesione al DB
+# stabilisco una connessione al DB
 require_once '../db/connection.php';
 
 try {

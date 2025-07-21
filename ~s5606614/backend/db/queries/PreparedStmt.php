@@ -16,7 +16,7 @@ abstract class PreparedStmt {
 
 
     # parte iniziale di un prepared stmt
-    protected function prepare(string $types, array $params) {
+    protected function prepare(string $types, array $params): mysqli_stmt {
 
         $stmt = $this->con->prepare($this->query);
         if(!$stmt) {
@@ -34,7 +34,7 @@ abstract class PreparedStmt {
     }
 
     # metodo per la chiusura dello stmt
-    protected function close(mysqli_stmt $stmt) {
+    protected function close(mysqli_stmt $stmt): void {
         if (!$stmt->close()) {
             throw new mysqli_sql_exception("Errore durante la chiusura dello statement:" . get_class($this));
         }
