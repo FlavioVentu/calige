@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once 'backend/utils/functions.php';
 
 # Header
@@ -12,7 +14,7 @@ require_once "backend/components/navbar.php";
 
 
     <!-- PARTE CENTRALE -->
-    <div class="min-vh-100 pt-5" id="sfondo">
+    <div class="min-vh-100 pt-5" id="home">
         <div class="container-fluid text-center pb-5 text-white" role="complementary">
             <h1 class="display-3 pt-5">Benvenuto su CALI<i>ge</i></h1>
             <h2 class="display-4">La community dei parchetti Calisthenics di Genova
