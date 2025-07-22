@@ -2,7 +2,6 @@
 
 # funzione per generare uno username di un utente
 use Random\RandomException;
-
 function randomUsername($length = 20): string
 {
     $caratteri = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';

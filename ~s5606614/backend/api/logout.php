@@ -22,6 +22,7 @@ session_start();
 
 require_once '../utils/functions.php';
 
+
 # se non abbiamo salvato nella sessione la variabile username rimandiamo alla pagina di login (utente ha già fatto login)
 # Se non è una richiesta da browser, rispondiamo in JSON con errore 401
 if (!isset($_SESSION['username'])) {

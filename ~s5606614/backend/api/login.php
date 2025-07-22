@@ -27,6 +27,7 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 session_start();
 
+
 # se abbiamo salvato nella sessione la variabile username rimandiamo alla home page (utente ha già fatto login)
 # Se non è una richiesta da browser, rispondiamo in JSON con errore 400
 if (isset($_SESSION['username'])) {
