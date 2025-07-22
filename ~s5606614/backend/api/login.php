@@ -27,7 +27,8 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 session_start();
 
-# se abbiamo salvato nella sessione la variabile username rimandiamo alla home page (utente già loggato)
+
+# se abbiamo salvato nella sessione la variabile username rimandiamo alla home page (utente ha già fatto login)
 # Se non è una richiesta da browser, rispondiamo in JSON con errore 400
 if (isset($_SESSION['username'])) {
     if (isBrowserRequest()) {
@@ -56,7 +57,7 @@ if(!isset($_POST['email']) || !isset($_POST['pass'])) {
 $email = trim($_POST['email']);
 $password = trim($_POST['pass']);
 
-# controllo variabli
+# controllo variabili
 # email
 if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
@@ -88,7 +89,7 @@ $internal_error = json_encode([
 # setto il log degli errori del DB
 ErrorLog::logDB();
 
-# stabilisco una connesione al DB
+# stabilisco una connessione al DB
 require_once '../db/Connection.php';
 
 
@@ -117,7 +118,7 @@ try {
     # se tutto va bene mando una risposta di successo
     echo json_encode([
         "status" => "Successo",
-        "message" => "Utente loggato!"
+        "message" => "Utente autenticato!"
     ]);
 
 } catch (mysqli_sql_exception $e) {

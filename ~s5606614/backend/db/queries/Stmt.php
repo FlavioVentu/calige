@@ -16,7 +16,7 @@ abstract class Stmt {
 
 
     # parte iniziale di un prepared stmt
-    protected function init() {
+    protected function init(): mysqli_result {
 
          # se la query non va a buon fine lancio un'eccezione
         if (!($res = $this->con->query($this->query))) {
@@ -27,7 +27,7 @@ abstract class Stmt {
     }
 
     # metodo per la chiusura del risultato
-    protected function close(mysqli_result $res) {
+    protected function close(mysqli_result $res): void {
         $res->free();
     }
 }

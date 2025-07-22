@@ -1,6 +1,7 @@
 <?php
 
-# funzione per generare randomicamente uno username di un utente
+# funzione per generare uno username di un utente
+use Random\RandomException;
 function randomUsername($length = 20): string
 {
     $caratteri = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
@@ -8,7 +9,11 @@ function randomUsername($length = 20): string
     $total_char = strlen($caratteri) - 1;
 
     for($i = 0; $i < $length; $i++) {
-        $username .= $caratteri[random_int(0, $total_char)];
+        try {
+            $username .= $caratteri[random_int(0, $total_char)];
+        } catch (RandomException $e) {
+            throw new Error("Errore nella generazione dello username: " . $e->getMessage());
+        }
     }
 
     return $username;
@@ -17,5 +22,11 @@ function randomUsername($length = 20): string
 # funzione per controllare se una richiesta è da browser
 function isBrowserRequest(): bool
 {
-    return !empty($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'Mozilla') !== false;
+    return !empty($_SERVER['HTTP_USER_AGENT']) && str_contains($_SERVER['HTTP_USER_AGENT'], 'Mozilla');
+}
+
+# funzione per il titolo della pagina
+function title(): string
+{
+    return ucwords(str_replace('_', ' ', basename($_SERVER['PHP_SELF'], '.php')));
 }

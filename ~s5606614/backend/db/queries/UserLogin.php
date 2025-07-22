@@ -1,6 +1,6 @@
 <?php
 
-require_once 'preparedStmt.php';
+require_once 'PreparedStmt.php';
 
 class UserLogin extends PreparedStmt {
 
@@ -32,15 +32,16 @@ class UserLogin extends PreparedStmt {
 
         $result->free();
 
-        # 2. salvarsi il campo password del db e confrontarlo con la password inserita  dall'utente (password_verify)
+        # 2. salvarsi il campo password del db e confrontarlo con la password inserita dall'utente (password_verify)
         
         $pass = $row['password'];
         if (!password_verify($this->pass, $pass)) {
             throw new Error("Le password non coincidono");
         }
 
-        # 3. se tutto è ok creare la variabile di sessione username contenente tale dato dal db
+        # 3. se tutto è ok creare la variabile di sessione username ed email contenente tale dati dal db
         $_SESSION['username'] = $row['username'];
+        $_SESSION['email'] = $row['email'];
 
     }
 }
