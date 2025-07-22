@@ -1,5 +1,12 @@
-<body>
+<?php
 
+$login = false;
+if(isset($_SESSION['username'])) {
+    $login = true;
+}
+
+echo <<< NAVBAR
+<body>
 
     <!-- NAVBAR -->
     <nav class="sticky-top navbar cali_color navbar-expand-lg" data-bs-theme="dark">
@@ -26,10 +33,21 @@
                 <div class="offcanvas-body text-center">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 
+NAVBAR;
+
+if($login) {
+    echo <<< NAVBAR
                         <!-- FORUM -->
                         <li class="nav-item me-lg-5 mb-lg-0 mb-4"><a class="nav-link" aria-current="page"
                                 href="/~s5606614/frontend/pages/forum.php">Forum</a></li>
-
+                                
+                        <!-- LOGOUT -->
+                        <li class="nav-item me-lg-3 mb-lg-0 mb-3"><a class="btn btn-light" href="/~s5606614/backend/api/logout.php" role="button"
+                                aria-label="Clicca per fare logout"><i class="bi bi-box-arrow-right"></i></a></li>
+NAVBAR;
+}
+else {
+echo <<< NAVBAR
                         <!-- REGISTRAZIONE -->
                         <li class="nav-item me-lg-3 mb-lg-0 mb-3"><a class="btn btn-light" href="/~s5606614/frontend/pages/signup.php" role="button"
                                 aria-label="Clicca per andare alla pagina di registrazione">Sign Up</a></li>
@@ -37,8 +55,13 @@
                         <!-- LOGIN -->
                         <li class="nav-item me-lg-3"><a class="btn btn-dark" href="/~s5606614/frontend/pages/login.php" role="button"
                                 aria-label="Clicca per andare alla pagina del login">Login</a></li>
+NAVBAR;
+}
+
+echo <<< NAVBAR
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
+NAVBAR;
