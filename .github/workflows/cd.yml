@@ -1,0 +1,26 @@
+name: Deploy via SFTP with password
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Upload via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USER }}
+          password: ${{ secrets.SFTP_PASS }}
+          port: 22
+          protocol: sftp
+          local-dir: ./~s5606614
+          server-dir: /home/s5606614/public_html
+          dangerous-clean-slate: false
