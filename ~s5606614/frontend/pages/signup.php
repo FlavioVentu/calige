@@ -1,5 +1,9 @@
 <?php
+
+require_once '../../backend/utils/functions.php';
+
 require_once "../../backend/components/header.php";
+
 require_once "../../backend/components/navbar.php";
 ?>
 

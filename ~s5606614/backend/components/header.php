@@ -1,10 +1,15 @@
+<?php
+
+$title = title();
+
+echo <<< FOOTER
 <!DOCTYPE html>
 <html lang="it">
 
 <head>
 
     <!-- METADATI -->
-    <title>CALIge | Home</title>
+    <title>CALIge | $title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF8">
     <meta name="description" content="Sito del CALIge">
@@ -27,3 +32,4 @@
     <!-- ICON -->
     <link rel="shortcut icon" href="/~s5606614/frontend/images/favicon.ico" type="image/x-icon">
 </head>
+FOOTER;

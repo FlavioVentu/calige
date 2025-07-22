@@ -25,3 +25,9 @@ function isBrowserRequest(): bool
 {
     return !empty($_SERVER['HTTP_USER_AGENT']) && str_contains($_SERVER['HTTP_USER_AGENT'], 'Mozilla');
 }
+
+# funzione per il titolo della pagina
+function title(): string
+{
+    return ucwords(str_replace('_', ' ', basename($_SERVER['PHP_SELF'], '.php')));
+}

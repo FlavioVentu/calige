@@ -98,7 +98,7 @@ $internal_error = json_encode([
 ErrorLog::logDB();
 
 # stabilisco una connessione al DB
-require_once '../db/connection.php';
+require_once '../db/Connection.php';
 
 try {
 

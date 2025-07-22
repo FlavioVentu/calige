@@ -1,5 +1,7 @@
 <?php
 
+require_once 'backend/utils/functions.php';
+
 # Header
 require_once "backend/components/header.php";
 
@@ -40,11 +42,11 @@ require_once "backend/components/navbar.php";
                 <!-- CALISAURO -->
                 <div class="col">
                     <div class="card m-5 rounded-5">
-                        <img src="/frontend/images/parchi/genova_sauro.jpg"
+                        <img src="/~s5606614/frontend/images/parchi/genova_sauro.jpg"
                             class="card-img-top rounded-5 rounded-bottom-0" alt="Parco calistenico del CaliSauro">
                         <div class="card-body text-white">
                             <h5 class="card-title">CaliSauro</h5>
-                            <p class="card-text">viale Nazario Sauro</p>
+                            <p class="card-text">Viale Nazario Sauro</p>
                             <a href="#" class="btn btn-primary">visita</a>
                         </div>
                     </div>
@@ -53,7 +55,7 @@ require_once "backend/components/navbar.php";
                 <!-- GENOVA PRA -->
                 <div class="col">
                     <div class="card m-5 rounded-5">
-                        <img src="/frontend/images/parchi/genova_pra.jpg"
+                        <img src="/~s5606614/frontend/images/parchi/genova_pra.jpg"
                             class="card-img-top rounded-5 rounded-bottom-0" alt="Parco calistenico di Genova Pra">
                         <div class="card-body text-white">
                             <h5 class="card-title">Genova Pra</h5>
@@ -66,7 +68,7 @@ require_once "backend/components/navbar.php";
                 <!-- GENOVA NERVI -->
                 <div class="col">
                     <div class="card m-5 rounded-5">
-                        <img src="/frontend/images/parchi/genova_nervi.jpg"
+                        <img src="/~s5606614/frontend/images/parchi/genova_nervi.jpg"
                             class="card-img-top rounded-5 rounded-bottom-0" alt="Parco calistenico di Genova Nervi">
                         <div class="card-body text-white">
                             <h5 class="card-title">Genova Nervi</h5>
@@ -79,7 +81,7 @@ require_once "backend/components/navbar.php";
                 <!-- ERZELLI -->
                 <div class="col">
                     <div class="card m-5 rounded-5">
-                        <img src="/frontend/images/parchi/genova_erzelli.jpg"
+                        <img src="/~s5606614/frontend/images/parchi/genova_erzelli.jpg"
                             class="card-img-top rounded-5 rounded-bottom-0" alt="Parco calistenico degli Erzelli">
                         <div class="card-body text-white">
                             <h5 class="card-title">Erzelli</h5>
@@ -92,11 +94,11 @@ require_once "backend/components/navbar.php";
                 <!-- CUS GENOVA -->
                 <div class="col">
                     <div class="card m-5 rounded-5">
-                        <img src="/frontend/images/parchi/genova_cus.jpg"
+                        <img src="/~s5606614/frontend/images/parchi/genova_cus.jpg"
                             class="card-img-top rounded-5 rounded-bottom-0" alt="Parco calistenico del Cus Genova">
                         <div class="card-body text-white">
                             <h5 class="card-title">Cus Genova</h5>
-                            <p class="card-text">via Dodecaneso</p>
+                            <p class="card-text">Via Dodecaneso</p>
                             <a href="#" class="btn btn-primary">Visita</a>
                         </div>
                     </div>
@@ -105,7 +107,7 @@ require_once "backend/components/navbar.php";
                 <!-- GENOVA PRINCIPE -->
                 <div class="col">
                     <div class="card m-5 rounded-5">
-                        <img src="/frontend/images/parchi/genova_principe.jpg"
+                        <img src="/~s5606614/frontend/images/parchi/genova_principe.jpg"
                             class="card-img-top rounded-5 rounded-bottom-0" alt="Parco calistenico di Genova Principe">
                         <div class="card-body text-white">
                             <h5 class="card-title">Genova Principe</h5>
@@ -120,7 +122,7 @@ require_once "backend/components/navbar.php";
             <!-- PARTE FORUM -->
             <h3 class="display-6 p-5 mt-5"><i class="bi bi-send-fill"></i> Partecipa al forum: lascia una
                 recensione, segnala problemi, proponi
-                miglioramenti o organizza un allenamento di gruppo.
+                miglioramenti oppure organizza un allenamento di gruppo.
             </h3>
 
             <!-- TODO: realizzare la parte del forum -->

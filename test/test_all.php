@@ -14,7 +14,7 @@ require 'utils.php';
 /*                                            */
 /* DO NOT UPLOAD TEST FILES ON SAW21!         */
 /**********************************************/
-$baseurl = "http://localhost/backend/api"; 
+$baseurl = "https://saw.dibris.unige.it/~s5606614/backend/api";
 
 echo "[+] Testing Registration - Login - Show Profile\n";
 
