@@ -1,4 +1,4 @@
-name: Deploy via SFTP with password
+name: SFTP Upload
 
 on:
   push:
@@ -6,21 +6,19 @@ on:
       - main
 
 jobs:
-  deploy:
+  upload:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Upload via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Upload files via SFTP
+        uses: Dylan700/sftp-upload-action@v1.0.3
         with:
           server: ${{ secrets.SFTP_HOST }}
+          port: 22
           username: ${{ secrets.SFTP_USER }}
           password: ${{ secrets.SFTP_PASS }}
-          port: 22
-          protocol: sftp
-          local-dir: ./~s5606614
-          server-dir: /home/s5606614/public_html
-          dangerous-clean-slate: false
+          uploads: |
+            ./~s5606614/ => /home/s5606614/public_html/
