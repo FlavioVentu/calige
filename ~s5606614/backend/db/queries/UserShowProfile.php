@@ -14,7 +14,7 @@ class UserShowProfile extends Stmt {
             throw new mysqli_sql_exception("Errore nella restituzione del record nella query:" . get_class($this));
         }
 
-        $this->close($res);
+        $res->free();
 
         return $row;
     }

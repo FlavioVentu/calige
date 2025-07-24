@@ -7,18 +7,23 @@ ErrorLog::logGeneral();
 # utilizziamo formato json per la risposta nel body
 header("Content-Type: application/json");
 
+# gestione cache in modo che non venga salvato niente lato client
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");  # per compatibilità con HTTP/1.0
+header("Expires: 0");
+
 require_once '../utils/functions.php';
 
 # se la richiesta http non è POST
 # se viene fatta da un browser rimandiamo alla pagina frontend della login
 # altrimenti mandiamo un payload json di errore con metodo non valido
 if($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header("Allow: POST");
     if (isBrowserRequest()) {
         header('Location: ../../frontend/pages/login.php');
     } else {
         http_response_code(405);
         echo json_encode([
-            "status" => "Errore",
             "message" => "Richiesta effettuata con un metodo HTTP non supportato (richiesto POST, trovato " . $_SERVER['REQUEST_METHOD'] . ")"
         ]);
     }
@@ -36,7 +41,6 @@ if (isset($_SESSION['username'])) {
     } else {
         http_response_code(400);
         echo json_encode([
-            "status" => "Errore",
             "message" => "Utente già autenticato"
         ]);
     }
@@ -47,7 +51,6 @@ if (isset($_SESSION['username'])) {
 if(!isset($_POST['email']) || !isset($_POST['pass'])) {
     http_response_code(400);
     echo json_encode([
-            "status" => "Errore",
             "message" => "Mancanza di dati necessari per il login"
         ]);
     exit;
@@ -58,66 +61,47 @@ $email = trim($_POST['email']);
 $password = trim($_POST['pass']);
 
 # controllo variabili
+require_once "../utils/const.php";
+
 # email
 if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     echo json_encode([
-            "status" => "Errore",
             "message" => "Formato email invalido"
         ]);
     exit;
 }
 
 # password
-if(strlen($password) < 8) {
+if(!preg_match(PASS_PATTERN, $password)) {
     http_response_code(400);
     echo json_encode([
-            "status" => "Errore",
-            "message" => "Password non sufficientemente lunga"
+            "message" => "Formato password invalido"
         ]);
     exit;
 }
 
 # PARTE DB
 
-# risposta json in caso di errore del server
-$internal_error = json_encode([
-        "status" => "Errore",
-        "message" => "Problema interno :("
-        ]);
-
 # setto il log degli errori del DB
 ErrorLog::logDB();
 
-# stabilisco una connessione al DB
-require_once '../db/Connection.php';
-
-
-try {
-
-    $con = Connection::getCon();
-
-} catch (mysqli_sql_exception $e) {
-
-    error_log($e->getMessage());
-    http_response_code(500);
-    echo $internal_error;
-    exit;
-
-}
 
 # parte di interrogazione al DB
-$query ="SELECT * FROM utente WHERE email = ?";
+$query ="SELECT username, password FROM utente WHERE email = ?";
 
+require_once '../db/Connection.php';
 require_once '../db/queries/UserLogin.php';
 try {
 
-    $reg = new UserLogin($con,$query,$password);
-    $reg->execute('s',array($email));
+    # stabilisco una connessione al DB
+    $con = Connection::getCon();
+
+    $login = new UserLogin($con,$query,$password);
+    $login->execute('s',array($email));
 
     # se tutto va bene mando una risposta di successo
     echo json_encode([
-        "status" => "Successo",
         "message" => "Utente autenticato!"
     ]);
 
@@ -125,14 +109,15 @@ try {
 
     error_log($e->getMessage());
     http_response_code(500);
-    echo $internal_error;
+    echo json_encode([
+        "message" => "Problema interno :("
+    ]);
     exit;
 
 } catch (Error $e) {
 
     http_response_code(400);
     echo json_encode([
-        "status" => "Errore",
         "message" => "Credenziali errate"
     ]);
     exit;

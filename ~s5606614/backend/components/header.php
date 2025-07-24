@@ -1,6 +1,7 @@
 <?php
 
 $title = title();
+$page_name = basename($_SERVER['PHP_SELF'], ".php");
 
 echo <<< FOOTER
 <!DOCTYPE html>
@@ -27,7 +28,11 @@ echo <<< FOOTER
         defer></script>
 
     <!-- CSS -->
-    <link href="/~s5606614/frontend/css/index.css" rel="stylesheet">
+    <link href="/~s5606614/frontend/css/util.css" rel="stylesheet">
+    
+    <!-- JS -->
+    <script src="/~s5606614/frontend/js/util.js" defer></script>
+    <script src="/~s5606614/frontend/js/{$page_name}.js" defer></script>
 
     <!-- ICON -->
     <link rel="shortcut icon" href="/~s5606614/frontend/images/favicon.ico" type="image/x-icon">

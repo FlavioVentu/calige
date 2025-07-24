@@ -20,7 +20,7 @@ require_once "../../backend/components/navbar.php";
 <div class="d-flex justify-content-center align-items-center min-vh-100" id="signup">
 
     <div class="container cali_color_text">
-        <div class="row justify-content-center p-5">
+        <div class="row justify-content-center py-5">
             <div class="col-lg-8 col-10 pt-5 px-5 form border rounded shadow-lg">
                 <h1 class="text-center text-white mb-4">Registrati</h1>
                 <form action="../../backend/api/registration.php" method="post">
