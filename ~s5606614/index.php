@@ -16,7 +16,15 @@ require_once "backend/components/navbar.php";
     <!-- PARTE CENTRALE -->
     <div class="min-vh-100 pt-5" id="home">
         <div class="container-fluid text-center pb-5 text-white" role="complementary">
-            <h1 class="display-3 pt-5">Benvenuto su CALI<i>ge</i></h1>
+<?php
+if(!$login) {
+        echo '<h1 class="display-3 pt-5">Benvenuto su CALI<i>ge</i></h1>';
+}
+else {
+        echo '<h1 class="display-3 pt-5">Bentornato su CALI<i>ge</i></h1>';
+}
+
+            ?>
             <h2 class="display-4">La community dei parchetti Calisthenics di Genova
             </h2>
             <div class="row justify-content-center">

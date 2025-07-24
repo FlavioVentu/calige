@@ -13,7 +13,7 @@ final class Connection {
         $con = new mysqli(self::HOST, self::USER, self::PASS, self::DB);
 
         if($con->connect_error) {
-            throw new mysqli_sql_exception("Errore di connessione al DB");
+            throw new mysqli_sql_exception($con->error);
         }
         
         return $con;

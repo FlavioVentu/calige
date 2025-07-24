@@ -7,18 +7,23 @@ ErrorLog::logGeneral();
 # utilizziamo formato json per la risposta nel body
 header("Content-Type: application/json");
 
+# gestione cache in modo che non venga salvato niente lato client
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");  # per compatibilità con HTTP/1.0
+header("Expires: 0");
+
 require_once '../utils/functions.php';
 
 # se la richiesta http non è POST
 # se viene fatta da un browser rimandiamo alla pagina frontend della sign-up
 # altrimenti mandiamo un payload json di errore con metodo non valido
 if($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header("Allow: POST");
     if (isBrowserRequest()) {
         header('Location: ../../frontend/pages/signup.php');
     } else {
         http_response_code(405);
         echo json_encode([
-            "status" => "Errore",
             "message" => "Richiesta effettuata con un metodo HTTP non supportato (richiesto POST, trovato " . $_SERVER['REQUEST_METHOD'] . ")"
         ]);
     }
@@ -35,7 +40,6 @@ if (isset($_SESSION['username'])) {
     } else {
         http_response_code(400);
         echo json_encode([
-            "status" => "Errore",
             "message" => "Utente già autenticato"
         ]);
     }
@@ -46,7 +50,6 @@ if (isset($_SESSION['username'])) {
 if(!isset($_POST['firstname']) || !isset($_POST['lastname']) || !isset($_POST['email']) || !isset($_POST['pass']) || !isset($_POST['confirm'])) {
     http_response_code(400);
     echo json_encode([
-            "status" => "Errore",
             "message" => "Mancanza di dati necessari per la registrazione"
         ]);
     exit;
@@ -61,22 +64,21 @@ $confirm = trim($_POST['confirm']);
 
 
 # CONTROLLO VARIABILI
+require_once "../utils/const.php";
 
 # nome
-if(strlen($firstname) < 2 || strlen($firstname) > 30) {
+if(!preg_match(NAME_SURNAME_PATTERN, $firstname)) {
     http_response_code(400);
     echo json_encode([
-            "status" => "Errore",
             "message" => "Nome fornito non valido"
         ]);
     exit;
 }
 
 # cognome
-if(strlen($lastname) < 2 || strlen($lastname) > 30) {
+if(!preg_match(NAME_SURNAME_PATTERN, $lastname)) {
     http_response_code(400);
     echo json_encode([
-            "status" => "Errore",
             "message" => "Cognome fornito non valido"
         ]);
     exit;
@@ -86,18 +88,16 @@ if(strlen($lastname) < 2 || strlen($lastname) > 30) {
 if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     echo json_encode([
-            "status" => "Errore",
             "message" => "Formato email invalido"
         ]);
     exit;
 }
 
 # password
-if(strlen($password) < 8) {
+if(!preg_match(PASS_PATTERN, $password)) {
     http_response_code(400);
     echo json_encode([
-            "status" => "Errore",
-            "message" => "Password non sufficientemente lunga"
+            "message" => "Formato password invalido"
         ]);
     exit;
 }
@@ -106,57 +106,45 @@ if(strlen($password) < 8) {
 if($password !== $confirm) {
     http_response_code(400);
     echo json_encode([
-            "status" => "Errore",
             "message" => "Le due password non coincidono"
         ]);
     exit;
 }
 
 # faccio hash della password
-$hash = password_hash($password, PASSWORD_DEFAULT);
+if(!($hash = password_hash($password, PASSWORD_DEFAULT))) {
+    http_response_code(500);
+    echo json_encode([
+        "message" => "Problema interno :("
+    ]);
+}
 
 # genero uno username casuale per la registrazione
 $random_username = randomUsername();
+$firstname = ucwords($firstname);
+$lastname = ucwords($lastname);
 
 # PARTE DB
-
-# risposta json in caso di errore del server
-$internal_error = json_encode([
-        "status" => "Errore",
-        "message" => "Problema interno :("
-        ]);
 
 # setto i log in modo che gli errori del db vadano in un file specifico
 ErrorLog::logDB();
 
-# stabilisco una connessione al DB
-require_once '../db/Connection.php';
-
-try {
-
-    $con = Connection::getCon();
-
-} catch (mysqli_sql_exception $e) {
-
-    error_log($e->getMessage());
-    http_response_code(500);
-    echo $internal_error;
-    exit;
-
-}
 
 # parte di interrogazione al DB
 $query = "INSERT INTO utente (username, nome, cognome, email, password) VALUES ('$random_username',?,?,?,?)";
 
+require_once '../db/Connection.php';
 require_once '../db/queries/UserRegistration.php';
 try {
+
+    # stabilisco una connessione al DB
+    $con = Connection::getCon();
 
     $reg = new UserRegistration($con,$query);
     $reg->execute('ssss',array($firstname,$lastname,$email,$hash));
 
     # se tutto va bene mando una risposta di successo includendo lo username generato
     echo json_encode([
-        "status" => "Successo",
         "message" => "Utente registrato!",
         "data" => [
             "username" => $random_username
@@ -167,7 +155,9 @@ try {
 
     error_log($e->getMessage());
     http_response_code(500);
-    echo $internal_error;
+    echo json_encode([
+        "message" => "Problema interno :("
+    ]);
     exit;
 
 } finally {

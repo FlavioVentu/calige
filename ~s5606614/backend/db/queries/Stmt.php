@@ -3,8 +3,8 @@
 # classe astratta per tutte le query
 abstract class Stmt {
 
-    private $con;
-    private $query;
+    private mysqli $con;
+    private string $query;
 
     public function __construct(mysqli $con, string $query) {
         $this->con = $con;
@@ -26,8 +26,4 @@ abstract class Stmt {
         return $res;
     }
 
-    # metodo per la chiusura del risultato
-    protected function close(mysqli_result $res): void {
-        $res->free();
-    }
 }
