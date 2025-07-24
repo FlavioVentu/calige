@@ -17,7 +17,13 @@ function checkRegExp(value, exp) {
 // funzione per gestire la validazione dei campi del form
 function checkElem(elem, exp) {
     const value = elem.value.trim();
-    if(checkRegExp(value,exp)) {
+    let valid;
+    if(exp instanceof HTMLElement) {
+        valid = elem.value === exp.value; // caso confronto password
+    } else {
+        valid = checkRegExp(value,exp); // caso confronto con espressione regolare (RegExp)
+    }
+    if(valid) {
         (elem.classList.contains('is-invalid')) ?
             elem.classList.replace('is-invalid','is-valid') :
             elem.classList.add('is-valid');
