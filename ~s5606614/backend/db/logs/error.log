@@ -1,0 +1,14 @@
+[25-Jul-2025 22:06:46 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class "queries\Parks" not found in C:\xampp\htdocs\Omik\calige\~s5606614\backend\api\parks.php:42
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Omik\calige\~s5606614\backend\api\parks.php on line 42
+[25-Jul-2025 22:07:28 Europe/Berlin] PHP Fatal error:  Uncaught Error: Nessun parco trovato in C:\xampp\htdocs\Omik\calige\~s5606614\backend\db\queries\Parks.php:13
+Stack trace:
+#0 C:\xampp\htdocs\Omik\calige\~s5606614\backend\api\parks.php(41): Parks->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\Omik\calige\~s5606614\backend\db\queries\Parks.php on line 13
+[25-Jul-2025 22:07:29 Europe/Berlin] PHP Fatal error:  Uncaught Error: Nessun parco trovato in C:\xampp\htdocs\Omik\calige\~s5606614\backend\db\queries\Parks.php:13
+Stack trace:
+#0 C:\xampp\htdocs\Omik\calige\~s5606614\backend\api\parks.php(41): Parks->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\Omik\calige\~s5606614\backend\db\queries\Parks.php on line 13

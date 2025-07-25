@@ -38,25 +38,25 @@ require_once "../../backend/components/navbar.php";
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-md-3 cali_color text-white py-2">Nome</div>
-                                <div class="col-md-9 text-truncate py-2 text-start" id="firstname"></div>
+                                <input type="text" class="col-md-9 text-truncate py-2 text-start" id="firstname">
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-md-3 cali_color text-white py-2">Cognome</div>
-                                <div class="col-md-9 text-truncate py-2 text-start" id="lastname"></div>
+                                <input type="text" class="col-md-9 text-truncate py-2 text-start" id="lastname">
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-md-3 cali_color text-white py-2">Email</div>
-                                <div class="col-md-9 text-truncate py-2 text-start" id="email"></div>
+                                <input type="text" class="col-md-9 text-truncate py-2 text-start" id="email">
                             </div>
                         </li>
                     </ul>
 
                     <a href="" class="btn btn-lg col-lg-4 text-white"><i class="bi bi-person-bounding-box me-2"></i>Modifica username</a>
-                    <a href="/~s5606614/frontend/pages/update_profile.php" class="btn btn-lg col-lg-4 text-white"><i class="bi bi-person-lines-fill me-2"></i>Modifica profilo</a>
+                    <button class="btn btn-lg col-lg-4 text-white disabled" id="update"><i class="bi bi-person-lines-fill me-2"></i>Modifica profilo</button>
                     <a href="" class="btn btn-lg col-lg-4 text-white"><i class="bi bi-key-fill me-2"></i>Modifica password</a>
 
 
