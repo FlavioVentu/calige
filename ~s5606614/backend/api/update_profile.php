@@ -122,8 +122,8 @@ try {
         "message" => "Dati aggiornati!",
         "data" => [
             "username" => $user,
-            "firstname" => $firstname,
-            "lastname" => $lastname,
+            "firstname" => htmlentities($firstname),
+            "lastname" => htmlentities($lastname),
             "email" => $email
         ]
     ]);

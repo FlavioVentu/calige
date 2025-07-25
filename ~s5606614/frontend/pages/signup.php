@@ -24,7 +24,7 @@ require_once "../../backend/components/navbar.php";
             <div class="col-lg-8 col-10 pt-5 px-5 form border rounded shadow-lg">
                 <h1 class="text-center text-white mb-4">Registrati</h1>
                 <div class="d-flex justify-content-center mb-2 d-none">
-                    <div class="alert text-center py-2 w-50" id="alert"></div>
+                    <div class="alert text-center py-2 w-sm-50" id="alert"></div>
                 </div>
                 <form action="../../backend/api/registration.php" method="post">
                     <div class="row">
