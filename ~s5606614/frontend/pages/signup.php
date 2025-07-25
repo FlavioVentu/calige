@@ -23,6 +23,9 @@ require_once "../../backend/components/navbar.php";
         <div class="row justify-content-center py-5">
             <div class="col-lg-8 col-10 pt-5 px-5 form border rounded shadow-lg">
                 <h1 class="text-center text-white mb-4">Registrati</h1>
+                <div class="d-flex justify-content-center mb-2 d-none">
+                    <div class="alert text-center py-2 w-sm-50" id="alert"></div>
+                </div>
                 <form action="../../backend/api/registration.php" method="post">
                     <div class="row">
                         <div class="col-lg-6 form-floating mb-3">
@@ -49,7 +52,7 @@ require_once "../../backend/components/navbar.php";
                         </div>
                     </div>
                     <div class="d-flex justify-content-center align-items-center mt-4">
-                        <input type="submit" class="text-center btn cali_color text-white btn-lg px-5 py-3" name="submit" value="Invia">
+                        <input type="submit" class="text-center btn cali_color text-white btn-lg px-5 py-3" name="submit" id="submit" value="Invia">
                     </div>
                 </form>
             </div>

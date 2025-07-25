@@ -27,6 +27,13 @@
     background-position: center center;
 }
 
+#show_profile {
+    background-image: url(../images/show_profile.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
 h1 {
     font-family: Arial, Helvetica, sans-serif
 }
