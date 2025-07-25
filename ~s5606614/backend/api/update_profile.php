@@ -121,7 +121,6 @@ try {
     echo json_encode([
         "message" => "Dati aggiornati!",
         "data" => [
-            "username" => $user,
             "firstname" => htmlentities($firstname),
             "lastname" => htmlentities($lastname),
             "email" => $email
