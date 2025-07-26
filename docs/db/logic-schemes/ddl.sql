@@ -17,12 +17,13 @@ CREATE TABLE parco (
     CHECK ( immagine LIKE '%.%')
 );
 
-CREATE TABLE indirizzo (
+CREATE TABLE posizione (
     titolo VARCHAR(20),
     città VARCHAR(30) NOT NULL DEFAULT 'Genova',
-    via VARCHAR(50) NOT NULL,
-    cap CHAR(5) NOT NULL,
+    latitudine DECIMAL(9,6) NOT NULL,
+    longitudine DECIMAL(9,6) NOT NULL,
     PRIMARY KEY (titolo),
+    UNIQUE (latitudine, longitudine),
     FOREIGN KEY (titolo) REFERENCES parco(titolo) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -39,8 +40,8 @@ CREATE TABLE post (
     descrizione VARCHAR(255) NOT NULL,
     data TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (postid),
-    FOREIGN KEY (autore) REFERENCES utente(username),
-    FOREIGN KEY (tag) REFERENCES community(tag)
+    FOREIGN KEY (autore) REFERENCES utente(username) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tag) REFERENCES community(tag) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE commento (
@@ -50,16 +51,16 @@ CREATE TABLE commento (
     descrizione VARCHAR(255) NOT NULL,
     data TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (commid),
-    FOREIGN KEY (autore) REFERENCES utente(username),
-    FOREIGN KEY (postid) REFERENCES post(postid)
+    FOREIGN KEY (autore) REFERENCES utente(username) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (postid) REFERENCES post(postid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE menzione (
     username VARCHAR(20),
     postid INT,
     PRIMARY KEY (username, postid),
-    FOREIGN KEY (username) REFERENCES utente(username),
-    FOREIGN KEY (postid) REFERENCES post(postid)
+    FOREIGN KEY (username) REFERENCES utente(username) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (postid) REFERENCES post(postid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE segue (
@@ -67,6 +68,6 @@ CREATE TABLE segue (
     tag VARCHAR(20),
     accesso TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (username, tag),
-    FOREIGN KEY (username) REFERENCES utente(username),
-    FOREIGN KEY (tag) REFERENCES community(tag)
+    FOREIGN KEY (username) REFERENCES utente(username) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tag) REFERENCES community(tag) ON DELETE CASCADE ON UPDATE CASCADE
 );

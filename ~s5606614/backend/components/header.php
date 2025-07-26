@@ -34,6 +34,21 @@ echo <<< FOOTER
     <script src="/~s5606614/frontend/js/util.js" defer></script>
     <script src="/~s5606614/frontend/js/{$page_name}.js" defer></script>
 
+FOOTER;
+    if($page_name === "park") {
+        echo <<< FOOTER
+        <!-- MAPPA -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin="" defer></script>
+        FOOTER;
+    }
+echo <<< FOOTER
+
     <!-- ICON -->
     <link rel="shortcut icon" href="/~s5606614/frontend/images/favicon.ico" type="image/x-icon">
 </head>
