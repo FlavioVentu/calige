@@ -4,7 +4,7 @@ UTENTE(<u>username</u>, nome, cognome, _email_, password)
 
 PARCO(<u>titolo</u>, descrizione, immagine)
 
-INDIRIZZO(<u>titolo</u><sup>PARCO</sup>, città, via, cap)
+Posizione(<u>titolo</u><sup>PARCO</sup>, città, _latitudine, longitudine_)
 
 COMMUNITY(<u>tag</u>, descrizione)
 
