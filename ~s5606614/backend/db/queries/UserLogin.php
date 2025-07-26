@@ -28,7 +28,7 @@ class UserLogin extends PreparedStmt {
 
         # Recuperiamo il record come array associativo
         if(!($row = $result->fetch_assoc())) {
-            throw new mysqli_sql_exception($stmt->error . ": " . get_class($this));
+            throw new mysqli_sql_exception("Errore nel recuperare le info dell'utente: " . get_class($this));
         }
 
         $result->free();
@@ -41,7 +41,6 @@ class UserLogin extends PreparedStmt {
 
         # 3. se tutto è ok creare la variabile di sessione username ed email contenente tale dati dal db
         $_SESSION['username'] = $row['username'];
-        $_SESSION['email'] = $params[0]; # email
 
     }
 }

@@ -21,23 +21,35 @@ require_once "../../backend/components/navbar.php";
 <div class="container cali_color_text">
     <div class="row justify-content-center py-5">
         <div class="col-lg-8 col-10 pt-5 px-5 form border rounded shadow-lg">
+
+            <!-- HEADING -->
             <h1 class="text-center text-white mb-4">Accedi</h1>
             <div class="d-flex justify-content-center mb-2 d-none">
                 <div class="alert text-center py-2 w-sm-50" id="alert"></div>
             </div>
+
+            <!-- FORM -->
             <form action="../../backend/api/login.php" method="post">
+
+                <!-- email -->
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
                     <label for="email">Email</label>
                 </div>
+
+                <!-- password -->
                 <div class="form-floating mb-3">
                     <input type="password" class="form-control" id="pass" name="pass" placeholder="password">
                     <label for="pass">Password</label>
                 </div>
+
+                <!-- submit -->
                 <div class="d-flex justify-content-center align-items-center mt-4">
                     <input type="submit" class="text-center btn cali_color text-white btn-lg px-5 py-3 disabled" name="submit" id="submit" value="Invia">
                 </div>
+
             </form>
+
         </div>
     </div>
 </div>

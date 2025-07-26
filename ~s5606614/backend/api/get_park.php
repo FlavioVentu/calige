@@ -7,10 +7,9 @@ ErrorLog::logGeneral();
 # utilizziamo formato json per la risposta nel body
 header("Content-Type: application/json");
 
-# gestione cache in modo che non venga salvato niente lato client
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Pragma: no-cache");  # per compatibilità con HTTP/1.0
-header("Expires: 0");
+# sfruttiamo la cache lato client (7 giorni) dato che presumibilmente i dati del parco saranno sempre gli stessi
+header("Cache-Control: public, max-age=604800");
+header("Expires: " . gmdate("D, d M Y H:i:s", time() + 604800) . " GMT");
 
 # se la richiesta http non è formata con il metodo get restituisco un errore
 if($_SERVER['REQUEST_METHOD'] !== 'GET') {
@@ -51,7 +50,7 @@ ErrorLog::logDB();
 
 
 # parte di interrogazione al DB
-$query ="SELECT * FROM parco NATURAL JOIN posizione WHERE titolo = ?";
+$query ="SELECT descrizione, immagine, città, latitudine, longitudine FROM parco NATURAL JOIN posizione WHERE titolo = ?";
 
 require_once '../db/Connection.php';
 require_once '../db/queries/GetPark.php';
@@ -62,11 +61,6 @@ try {
 
     $park = new GetPark($con,$query);
     $res = $park->execute('s',array($titolo));
-
-    $location = [
-        "type" => "Polygon",
-        "coordinates" => [$res[1]['latitudine'],$res[1]['longitudine']]
-    ];
 
     # se tutto va bene mando una risposta di successo (GeoJson)
     echo json_encode([

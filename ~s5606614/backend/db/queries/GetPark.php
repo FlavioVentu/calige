@@ -20,11 +20,11 @@ class GetPark extends PreparedStmt
 
         # Recuperiamo il record come array associativo
         if(!($row = $result->fetch_assoc())) {
-            throw new mysqli_sql_exception($stmt->error . ": " . get_class($this));
+            throw new mysqli_sql_exception("Errore nel recuperare i dati del parco: " . get_class($this));
         }
 
         $result->free();
 
-        return array_chunk($row, 4, true);
+        return array_chunk($row, 3, true);
     }
 }

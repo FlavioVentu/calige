@@ -19,7 +19,7 @@ abstract class PreparedStmt {
     protected function prepare(string $types, array $params): mysqli_stmt {
 
         if(!($stmt = $this->con->prepare($this->query))) {
-            throw new mysqli_sql_exception($stmt->error . ": " . get_class($this));
+            throw new mysqli_sql_exception("Errore nella preparazione dello stmt: " . get_class($this));
         }
 
         if(!$stmt->bind_param($types,...$params)) {

@@ -12,7 +12,7 @@ echo <<< FOOTER
     <!-- METADATI -->
     <title>CALIge | $title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF8">
+    <meta charset="utf-8">
     <meta name="description" content="Sito del CALIge">
     <meta name="keywords" content="parchi, calisthenics, Genova, allenamento, condivisione">
     <meta name="author" content="Umeshan Panchabalasingham">

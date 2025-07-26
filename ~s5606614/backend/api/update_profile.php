@@ -15,12 +15,12 @@ header("Expires: 0");
 require_once '../utils/functions.php';
 
 # se la richiesta http non è POST
-# se viene fatta da un browser rimandiamo alla pagina frontend della sign-up
+# se viene fatta da un browser rimandiamo alla pagina frontend della show_profile
 # altrimenti mandiamo un payload json di errore con metodo non valido
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Allow: POST");
     if (isBrowserRequest()) {
-        header('Location: ../../frontend/pages/update_profile.php');
+        header('Location: ../../frontend/pages/show_profile.php');
     } else {
         http_response_code(405);
         echo json_encode([
@@ -97,12 +97,9 @@ ErrorLog::logDB();
 $firstname = ucwords($firstname);
 $lastname = ucwords($lastname);
 $user = $_SESSION['username'];
-$user_email = $_SESSION['email'];
 
-# se la nuova email è diversa da quella vecchia la aggiorno
-($email !== $user_email) ?
-    $query = "UPDATE utente SET nome=?, cognome=?, email=? WHERE username='$user'":
-    $query = "UPDATE utente SET nome=?, cognome=? WHERE username='$user'";
+
+$query = "UPDATE utente SET nome=?, cognome=?, email=? WHERE username='$user'";
 
 
 require_once '../db/Connection.php';
@@ -113,9 +110,7 @@ try {
     $con = Connection::getCon();
 
     $new_data = new UserUpdateProfile($con, $query);
-    ($email !== $user_email) ?
-        $new_data->execute('sss',array($firstname,$lastname,$email)) :
-        $new_data->execute('ss',array($firstname,$lastname));
+    $new_data->execute('sss',array($firstname,$lastname,$email));
 
     # se tutto va bene mando una risposta di successo con le informazioni aggiornate
     echo json_encode([
@@ -129,11 +124,19 @@ try {
 
 } catch (mysqli_sql_exception $e) {
 
-    error_log($e->getMessage());
-    http_response_code(500);
-    echo json_encode([
-        "message" => "Problema interno :("
-    ]);
+    $error = $e->getMessage();
+    if(str_contains($error,"Duplicate entry")) {
+        http_response_code(400);
+        echo json_encode([
+            "message" => "Email già in uso"
+        ]);
+    } else {
+        error_log($error);
+        http_response_code(500);
+        echo json_encode([
+            "message" => "Problema interno :("
+        ]);
+    }
     exit;
 
 } finally {
