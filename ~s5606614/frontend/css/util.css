@@ -1,3 +1,4 @@
+/*COLORE SITO*/
 .cali_color {
     background-color: #1f3244;
 }
@@ -6,6 +7,8 @@
     color: #1f3244;
 }
 
+
+/*SFONDI*/
 #home {
     background-image: url(../images/sfondo.jpg);
     background-size: cover;
@@ -38,6 +41,8 @@ h1 {
     font-family: Arial, Helvetica, sans-serif
 }
 
+
+/*HOME PAGE*/
 .parchi {
     background-color: #1f3244;
 }
@@ -57,6 +62,8 @@ h1 {
     padding: 20px;
 }
 
+
+/*MAPPA PARCHI*/
 @media (max-width: 768px) {
     #map {
         height: 300px;

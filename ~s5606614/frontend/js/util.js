@@ -7,6 +7,9 @@ const email_pattern = /^[\w][A-Za-z\d]+(?:[.-_][A-Za-z\d]+)*@[A-Za-z\d]+(?:[.-][
 // la password deve essere lunga almeno 8 caratteri e non contenere spazi
 const pass_pattern = /^\S{8,}$/;
 
+// pattern per username dove accettiamo solo lettere, numeri, _ e - (ci deve essere almeno una lettera)
+const username_pattern = /^(?=.*[A-Za-z])[A-Za-z0-9_-]{1,20}$/;
+
 
 
 // funzione per controllare che una stringa soddisfi un espressione regolare

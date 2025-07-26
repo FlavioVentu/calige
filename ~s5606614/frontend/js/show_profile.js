@@ -6,18 +6,24 @@ const alert = document.getElementById("alert");
 const div = alert.parentNode;
 const update = document.getElementById("update");
 
+
+// al caricamento della pagina mostriamo i dati dell'utente
 document.addEventListener("DOMContentLoaded", () => {
     fetch("/~s5606614/backend/api/show_profile.php", {
         method: "GET"
     }).then(async response => {
+
         const data = await response.json();
 
         if(response.ok) {
+
             username.innerText = data.data.username;
             firstname.value = data.data.firstname;
             lastname.value = data.data.lastname;
             email.value = data.data.email;
+
         } else {
+
             // mostriamo il parent div di alert
             div.classList.remove("d-none");
 
@@ -28,10 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // messaggio di errore
             alert.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>' + data.message;
+
         }
     })
 })
 
+
+// gestione bottone update profile
 update.addEventListener("click", () => {
 
     // prepariamo i dati da inviare nel body della richiesta http
@@ -47,6 +56,7 @@ update.addEventListener("click", () => {
         },
         body: formData
     }).then(async response => {
+
         const data = await response.json();
 
         // mostriamo il parent div di alert
@@ -80,6 +90,11 @@ update.addEventListener("click", () => {
         }
     }).catch(error => console.log("Errore: ", error));
 })
+
+
+
+// se cambiamo qualcosa nei campi modificabili rendiamo disponibile il bottone update profile
+
 
 firstname.addEventListener('input', ()  => {
     update.classList.remove('disabled');

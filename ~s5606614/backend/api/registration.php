@@ -153,11 +153,19 @@ try {
 
 } catch (mysqli_sql_exception $e) {
 
-    error_log($e->getMessage());
-    http_response_code(500);
-    echo json_encode([
-        "message" => "Problema interno :("
-    ]);
+    $error = $e->getMessage();
+    if(str_contains($error,"Duplicate entry")) {
+        http_response_code(400);
+        echo json_encode([
+            "message" => "Email già in uso"
+        ]);
+    } else {
+        error_log($error);
+        http_response_code(500);
+        echo json_encode([
+            "message" => "Problema interno :("
+        ]);
+    }
     exit;
 
 } finally {

@@ -17,6 +17,8 @@ require_once "backend/components/navbar.php";
     <div class="min-vh-100 pt-5" id="home">
         <div class="container-fluid text-center pb-5 text-white" role="complementary">
 <?php
+
+# messaggio personalizzato se l'utente è autenticato
 if(!$login) {
         echo '<h1 class="display-3 pt-5">Benvenuto su CALI<i>ge</i></h1>';
 }

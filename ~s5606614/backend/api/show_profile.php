@@ -51,7 +51,7 @@ ErrorLog::logDB();
 $user = $_SESSION['username'];
 
 # parte di interrogazione al DB
-$query ="SELECT nome,cognome FROM utente WHERE username = '$user'";
+$query ="SELECT nome,cognome, email FROM utente WHERE username = '$user'";
 
 require_once '../db/Connection.php';
 require_once '../db/queries/UserShowProfile.php';
@@ -70,7 +70,7 @@ try {
             "username" => $user,
             "firstname" => htmlentities($info['nome']),
             "lastname" => htmlentities($info['cognome']),
-            "email" => $_SESSION['email']
+            "email" => $info['email']
         ]
     ]);
 
