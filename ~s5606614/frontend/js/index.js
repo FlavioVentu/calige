@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // altrimenti diamo un messaggio di errore
             main.classList.remove("row-cols-lg-3", "row-cols-md-2", "row-cols-1")
-            main.innerHTML = `<h2 class="alert alert-danger">${data.message}</h2>`;
+            main.innerHTML = `<h2 class="alert alert-danger mb-0 p-3">${data.message}</h2>`;
 
         }
     }).catch(error => console.log(error));

@@ -37,7 +37,7 @@ if(isset($_SESSION['username'])) {
 if($login) {
     echo <<< NAVBAR
                         <!-- FORUM -->
-                        <li class="nav-item me-lg-5 mb-lg-0 mb-4"><a class="nav-link" aria-current="page"
+                        <li class="nav-item me-lg-5 mb-lg-0 mb-4"><a class="nav-link disabled" aria-current="page"
                                 href="/~s5606614/frontend/pages/forum.php">Forum</a></li>
                                 
                         <!-- PROFILE -->

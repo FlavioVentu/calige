@@ -90,27 +90,3 @@ update.addEventListener("click", () => {
         }
     }).catch(error => console.log("Errore: ", error));
 })
-
-
-
-// se cambiamo qualcosa nei campi modificabili rendiamo disponibile il bottone update profile
-
-
-firstname.addEventListener('input', ()  => {
-    update.classList.remove('disabled');
-    hideElem(div);
-})
-
-
-
-lastname.addEventListener('input', ()  => {
-    update.classList.remove('disabled');
-    hideElem(div);
-})
-
-
-
-email.addEventListener('input', ()  => {
-    update.classList.remove('disabled');
-    hideElem(div);
-})

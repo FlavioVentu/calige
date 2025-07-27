@@ -61,7 +61,9 @@ else {
                 miglioramenti oppure organizza un allenamento di gruppo.
             </h3>
 
-            <!-- TODO: realizzare la parte del forum -->
+            <div class="row d-flex align-items-stretch" id="forum" role="group">
+                <h2 class="alert alert-warning mb-0 p-3">In arrivo<i class="bi bi-wrench-adjustable-circle ms-2"></i></h2>
+            </div>
 
 
         </div>
