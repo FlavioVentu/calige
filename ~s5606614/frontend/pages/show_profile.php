@@ -67,9 +67,9 @@ require_once "../../backend/components/navbar.php";
                     </ul>
 
                     <!-- BOTTONI MODIFICA DATI -->
-                    <a href="" class="btn btn-lg col-lg-4 text-white"><i class="bi bi-person-bounding-box me-2"></i>Modifica username</a>
-                    <button class="btn btn-lg col-lg-4 text-white disabled" id="update"><i class="bi bi-person-lines-fill me-2"></i>Modifica profilo</button>
-                    <a href="" class="btn btn-lg col-lg-4 text-white"><i class="bi bi-key-fill me-2"></i>Modifica password</a>
+                    <a href="" class="btn btn-lg col-lg-4 text-white disabled"><i class="bi bi-person-bounding-box me-2"></i>Modifica username</a>
+                    <button class="btn btn-lg col-lg-4 text-white" id="update"><i class="bi bi-person-lines-fill me-2"></i>Modifica profilo</button>
+                    <a href="" class="btn btn-lg col-lg-4 text-white disabled"><i class="bi bi-key-fill me-2"></i>Modifica password</a>
 
                 </div>
 
