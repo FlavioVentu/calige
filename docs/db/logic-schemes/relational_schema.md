@@ -4,7 +4,7 @@ UTENTE(<u>username</u>, nome, cognome, _email_, password)
 
 PARCO(<u>titolo</u>, descrizione, immagine)
 
-Posizione(<u>titolo</u><sup>PARCO</sup>, città, _latitudine, longitudine_)
+POSIZIONE(<u>titolo</u><sup>PARCO</sup>, città, _latitudine, longitudine_)
 
 COMMUNITY(<u>tag</u>, descrizione)
 
@@ -15,3 +15,5 @@ COMMENTO(<u>commid</u>, autore<sup>UTENTE</sup>, postid<sup>POST</sup>, descrizi
 MENZIONE(<u>username<sup>UTENTE</sup>, postid</u><sup>POST</sup>)
 
 SEGUE(<u>username<sup>UTENTE</sup>, tag<sup>COMMUNITY</sup></u>, accesso)
+
+RECENSIONE(<u>autore<sup>UTENTE</sup>, titolo</u><sup>PARCO</sup>, punteggio, data, testo<sub>o</sub>)

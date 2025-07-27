@@ -9,9 +9,9 @@ require_once "../../backend/components/header.php";
 
 require_once "../../backend/components/navbar.php";
 ?>
-<div class="d-flex justify-content-center align-items-center min-vh-100" id="parco">
+<div class="d-flex row p-5 justify-content-center align-items-center min-vh-100" id="parco">
 
-    <div class="container cali_color_text">
+    <div class="container cali_color_text col-10">
         <div class="row justify-content-center py-5">
             <div class="py-3 px-3 row cali_color border rounded-4 shadow-lg">
 
@@ -26,13 +26,21 @@ require_once "../../backend/components/navbar.php";
                         <p class="card-text h5 lh-lg" id="descrizione"></p>
                         <hr>
                         <p class="card-text h5 lh-lg" id="city"><b><i class="bi bi-house-door-fill me-2"></i></b></p>
+                        <div class="d-sm-flex justify-content-between align-items-center">
+                            <p class="card-text h5 d-sm-inline lh-lg" id="valutazione"><b><i class="bi bi-star-fill text-warning me-2"></i></b></p>
+                            <button class="btn btn-light" id="recensioni">Leggi recensioni</button>
+                        </div>
                     </div>
                 </div>
 
+
             </div>
+
         </div>
     </div>
+
 </div>
+
 <?php
 require_once "../../backend/components/footer.html";
 ?>
