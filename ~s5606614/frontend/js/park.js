@@ -2,6 +2,10 @@ const main = document.getElementById("parco");
 const heading = document.getElementById("titolo"); // titolo parco
 const descrizione = document.getElementById("descrizione");
 const city = document.getElementById("city");
+const valutazione = document.getElementById("valutazione");
+const recensioni = document.getElementById("recensioni");
+const titolo = (new URLSearchParams(window.location.search)).get("titolo");
+
 
 // settiamo lo sfondo della pagina
 main.style.backgroundRepeat = "no-repeat";
@@ -10,9 +14,6 @@ main.style.backgroundPosition = "center center";
 
 // al caricamento della pagina facciamo una chiamata all'api passando il parametro get trovato nell'url
 document.addEventListener("DOMContentLoaded", () => {
-
-    const titolo = (new URLSearchParams(window.location.search)).get("titolo");
-
 
     fetch(`/~s5606614/backend/api/get_park.php?titolo=${titolo}`, {
         method: "GET"
@@ -52,6 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
             heading.innerText = titolo;
             descrizione.innerText = data.properties.descrizione;
             city.innerHTML += data.properties.città;
+            if(data.properties.valutazione) {
+                valutazione.innerHTML += data.properties.valutazione + '/5 su ' + data.properties.num + ' recensioni';
+            } else {
+                valutazione.innerHTML += data.properties.num + ' recensioni';
+                recensioni.classList.add("disabled");
+            }
 
         } else {
 
@@ -64,5 +71,41 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = "/~s5606614/";
             }, 1000);
         }
-    })
-})
+    }).catch(error => console.log(error));
+});
+
+
+recensioni.addEventListener("click", () => {
+
+    fetch(`/~s5606614/backend/api/get_reviews.php?titolo=${titolo}`, {
+        method: "GET"
+    }).then(async response => {
+
+        const data = await response.json();
+
+        if(response.ok) {
+
+            data.data.forEach((recensione) => {
+                main.innerHTML += `<div class="row col-10 col-lg-5 justify-content-center py-2">
+            <div class="py-3 px-3 cali_color border rounded-4 shadow-lg">
+                <div class="card cali_color text-white p-3">
+                    <div class="card-body">
+                        <div class="d-sm-flex justify-content-between align-items-center">
+                            <h3 class="card-title mb-0"><i class="bi bi-person-fill me-3"></i>${recensione.autore}</h3>
+                            <p class="card-text d-sm-inline lh-lg"><b>${recensione.punteggio}<i class="bi bi-star-fill text-warning ms-2"></i></b></p>
+                        </div>
+                        <hr>
+                        <p class="card-text lh-lg" id="testo">${recensione.testo}</p>
+                        <hr>
+                        <p class="card-text lh-lg" id="data"><b><i class="bi bi-calendar-fill me-2"></i>${recensione.data}</b></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>`
+            });
+        } else {
+
+        }
+    }).catch(error => console.log(error));
+});

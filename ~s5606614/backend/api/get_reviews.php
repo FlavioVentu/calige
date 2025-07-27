@@ -49,32 +49,23 @@ if(!preg_match(NAME_SURNAME_PATTERN, $titolo)) {
 # setto il log degli errori del DB
 ErrorLog::logDB();
 
-
 # parte di interrogazione al DB
-$query ="SELECT descrizione, immagine, città, ROUND(AVG(punteggio),1) AS valutazione, COUNT(punteggio) AS num, latitudine, longitudine
-FROM parco NATURAL JOIN posizione NATURAL LEFT OUTER JOIN recensione
-WHERE titolo = ?
-GROUP BY titolo";
+$query ="SELECT autore, punteggio, testo, data FROM recensione WHERE titolo = ? AND testo IS NOT NULL ORDER BY data DESC";
 
 require_once '../db/Connection.php';
-require_once '../db/queries/GetPark.php';
+require_once '../db/queries/GetReviews.php';
 try {
 
     # stabilisco una connessione al DB
     $con = Connection::getCon();
 
-    $park = new GetPark($con,$query);
-    $res = $park->execute('s',array($titolo));
+    $reviews = new GetReviews($con,$query);
+    $res = $reviews->execute('s',array($titolo));
 
-    # se tutto va bene mando una risposta di successo (GeoJson)
+    # se tutto va bene mando una risposta di successo
     echo json_encode([
-        "type" => "Feature",
-        "properties" => $res[0],
-        "geometry" => [
-            "type" => "Point",
-            "coordinates" => [$res[1]['latitudine'],$res[1]['longitudine']]
-        ]
-
+        "message" => "Recensioni trovate: " . count($res),
+        "data" => $res
     ]);
 
 } catch (mysqli_sql_exception $e) {
@@ -97,3 +88,4 @@ try {
 } finally {
     $con->close();
 }
+

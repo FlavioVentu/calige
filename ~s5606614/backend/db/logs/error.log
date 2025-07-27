@@ -1,1 +1,6 @@
 [27-Jul-2025 14:30:29 Europe/Berlin] Errore nell'inserimento dei dati dell'utente: UserUpdateProfile
+[27-Jul-2025 18:02:10 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class "PreparedStmt" not found in C:\xampp\htdocs\Omik\calige\~s5606614\backend\db\queries\GetReviews.php:3
+Stack trace:
+#0 C:\xampp\htdocs\Omik\calige\~s5606614\backend\api\get_reviews.php(56): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\Omik\calige\~s5606614\backend\db\queries\GetReviews.php on line 3

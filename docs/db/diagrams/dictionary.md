@@ -20,3 +20,4 @@
 | Scrive   | Pubblicazione commento |           | Utente, Commento  |
 | Risponde | Risposta ad un post    |           | Commento, Post    |
 | Ha       | Contesto post          |           | Community, Post   |
+| Recensisce       | Recensioni da utenti per parchi | punteggio, data, testo          | Utente, Parco   |
