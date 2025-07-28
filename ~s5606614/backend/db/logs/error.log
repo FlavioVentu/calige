@@ -1,5 +1,0 @@
-[28-Jul-2025 19:47:31 Europe/Berlin] PHP Warning:  Undefined variable $testo in C:\xampp\htdocs\Omik\calige\~s5606614\backend\api\add_review.php on line 95
-[28-Jul-2025 19:47:31 Europe/Berlin] PHP Warning:  Undefined variable $testo in C:\xampp\htdocs\Omik\calige\~s5606614\backend\api\add_review.php on line 108
-[28-Jul-2025 19:47:31 Europe/Berlin] You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''4)' at line 1
-[28-Jul-2025 19:51:06 Europe/Berlin] PHP Warning:  Undefined variable $testo in C:\xampp\htdocs\Omik\calige\~s5606614\backend\api\add_review.php on line 95
-[28-Jul-2025 19:51:06 Europe/Berlin] PHP Warning:  Undefined variable $testo in C:\xampp\htdocs\Omik\calige\~s5606614\backend\api\add_review.php on line 108

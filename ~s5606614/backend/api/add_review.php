@@ -77,7 +77,7 @@ if (!($punteggio=filter_var($_POST['punteggio'],FILTER_VALIDATE_INT))){
     exit;
 }
 
-if($punteggio < 0 || $punteggio > 5) {
+if($punteggio <= 0 || $punteggio > 5) {
     http_response_code(400);
     echo json_encode([
         "message" => "Valore del punteggio fornito non valido"

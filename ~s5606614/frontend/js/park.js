@@ -111,3 +111,48 @@ recensioni.addEventListener("click", () => {
         }
     }).catch(error => console.log(error));
 });
+
+// PARTE INVIO RECENSIONE
+const form = document.querySelector("form");
+const text = form.testo;
+
+form.addEventListener('submit', (event) => {
+
+    // annulliamo il comportamento predefinito del form
+    event.preventDefault();
+
+
+    // prepariamo i dati da inviare nel body della richiesta http
+    const formData = new URLSearchParams();
+    formData.append("punteggio", form.stars.value);
+
+    if ((text.value.trim()) !== 0) {
+        formData.append("testo", text.value);
+    }
+
+    fetch(`/~s5606614/backend/api/add_review.php?titolo=${titolo}`, {
+        method: "POST",
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded"
+        },
+        body: formData
+    }).then(async response => {
+
+        const data = await response.json();
+
+        if (response.ok) {
+            location.reload(true);
+        } else {
+            form.innerHTML += `<h2>${data.message}</h2>`;
+        }
+    }).catch(error => console.log(error))
+});
+
+const rangeInput = document.getElementById('stars');
+const rangeOutput = document.getElementById('range');
+
+rangeOutput.textContent = rangeInput.value;
+
+rangeInput.addEventListener('input', function () {
+    rangeOutput.innerHTML = this.value + `<i class="bi bi-star-fill text-warning ms-2"></i>`;
+});
