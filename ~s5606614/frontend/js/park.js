@@ -21,10 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const data = await response.json();
 
-        if(response.ok) {
+        if (response.ok) {
 
             // caso CaliSuaro => logo, altrimenti carico l'immagine del parco sullo sfondo
-            if(titolo === "CaliSauro") {
+            if (titolo === "CaliSauro") {
                 main.style.backgroundImage = `url(../images/CaliSauro.jpg)`;
             } else {
                 main.style.backgroundImage = `url(../images/parchi/${data.properties.immagine})`;
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const lon = parseFloat(data.geometry.coordinates[0]);
 
             // costruiamo la mappa centrata sulle coordinate
-            const map = L.map('map').setView([lon ,lat ], 15);
+            const map = L.map('map').setView([lon, lat], 15);
 
             // creazione del tile
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
             heading.innerText = titolo;
             descrizione.innerText = data.properties.descrizione;
             city.innerHTML += data.properties.città;
-            if(data.properties.valutazione) {
+            if (data.properties.valutazione) {
                 valutazione.innerHTML += data.properties.valutazione + '/5 su ' + data.properties.num + ' recensioni';
             } else {
                 valutazione.innerHTML += data.properties.num + ' recensioni';
@@ -83,7 +83,7 @@ recensioni.addEventListener("click", () => {
 
         const data = await response.json();
 
-        if(response.ok) {
+        if (response.ok) {
 
             data.data.forEach((recensione) => {
                 main.innerHTML += `<div class="row col-10 col-lg-5 justify-content-center py-2">
@@ -105,6 +105,8 @@ recensioni.addEventListener("click", () => {
         </div>`
             });
         } else {
+
+            main.innerHTML += `<h2 class="alert alert-danger">${data.message}</h2>`;
 
         }
     }).catch(error => console.log(error));

@@ -16,7 +16,7 @@ class GetReviews extends PreparedStmt
         $this->close($stmt);
 
         if($result->num_rows === 0) {
-            throw new Error("Parco non trovato o nessun testo trovato");
+            throw new Error("Nessuna recensione trovata");
         }
 
         # Recuperiamo il record come array associativo
@@ -25,6 +25,10 @@ class GetReviews extends PreparedStmt
         }
 
         $result->free();
+
+        foreach($res as $record){
+            $record['testo'] = htmlentities($record['testo']);
+        }
 
         return $res;
     }
