@@ -3,6 +3,8 @@
 require_once "../../backend/utils/Log.php";
 ErrorLog::logGeneral();
 
+session_start();
+
 require_once '../../backend/utils/functions.php';
 
 require_once "../../backend/components/header.php";
@@ -38,7 +40,33 @@ require_once "../../backend/components/navbar.php";
 
         </div>
     </div>
+<?php
+    if(isset($_SESSION['username'])) {
+        echo <<< REVIEW
+            <div class="row col-10 col-lg-5 justify-content-center py-2">
+            <div class="py-3 px-3 cali_color border rounded-4 shadow-lg">
+                <div class="card cali_color text-white p-3">
+                    <div class="card-body">
+                        <form>
+                            <label for="stars" class="form-label">Valutazione</label>
+                            <input type="range" class="form-range" min="1" max="5" value="3" id="stars">
+                            <output for="stars" id="range" ><i class="bi bi-star-fill text-warning ms-2"></i></output>
 
+                            <div class="mb-3">
+                                <label for="testo" class="form-label">Testo (opzionale)</label>
+                                <textarea class="form-control" id="testo" rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <input type="submit" class="text-center btn btn-primary btn-lg" name="submit" id="submit" value="Invia">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+        REVIEW;
+    }
+    ?>
 </div>
 
 <?php

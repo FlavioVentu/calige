@@ -19,6 +19,10 @@ class Parks extends Stmt
 
         $res->free();
 
+        foreach($parks as $park){
+            $park['titolo'] = htmlentities($park['titolo']);
+        }
+
         return $parks;
     }
 }

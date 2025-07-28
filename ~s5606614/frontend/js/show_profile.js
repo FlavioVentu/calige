@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const data = await response.json();
 
-        if(response.ok) {
+        if (response.ok) {
 
             username.innerText = data.data.username;
             firstname.value = data.data.firstname;
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
             div.classList.remove("d-none");
 
             // sfondo rosso per errore
-            if(!alert.classList.contains("alert-danger")) {
+            if (!alert.classList.contains("alert-danger")) {
                 alert.classList.add("alert-danger");
             }
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>' + data.message;
 
         }
-    })
+    }).catch(error => console.log("Errore: ", error));
 })
 
 
@@ -62,12 +62,12 @@ update.addEventListener("click", () => {
         // mostriamo il parent div di alert
         div.classList.remove("d-none");
 
-        if(response.ok) {
+        if (response.ok) {
 
 
             // rimuoviamo eventuali alert di errore e diamo un alert di successo
             alert.classList.remove("alert-danger");
-            if(!alert.classList.contains("alert-success")) {
+            if (!alert.classList.contains("alert-success")) {
                 alert.classList.add("alert-success");
             }
             alert.innerHTML = '<i class="bi bi-person-fill-check me-2"></i>' + data.message;
@@ -81,7 +81,7 @@ update.addEventListener("click", () => {
 
             // sfondo rosso per errore
             alert.classList.remove("alert-success");
-            if(!alert.classList.contains("alert-danger")) {
+            if (!alert.classList.contains("alert-danger")) {
                 alert.classList.add("alert-danger");
             }
 
